@@ -1,5 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import HouseholdSalaryCalculator from "./components/HouseholdSalaryCalculator";
-
 function App() {
   return (
     <div>
