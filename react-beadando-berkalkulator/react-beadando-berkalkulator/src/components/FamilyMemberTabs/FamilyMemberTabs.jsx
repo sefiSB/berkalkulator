@@ -1,5 +1,9 @@
-const FamilyMemberTabs = ({}) => {
-  return <div></div>;
+const FamilyMemberTabs = ({members}) => {
+  return <div>
+    members.map(((member)=>{
+
+    }))
+  </div>;
 };
 
 export default FamilyMemberTabs;
