@@ -2,7 +2,8 @@ import FamilyMemberTabs from "./FamilyMemberTabs/FamilyMemberTabs";
 import HouseholdSummary from "./HouseholdSummary/HouseholdSummary";
 import SalaryCalculator from "./SalaryCalculator/SalaryCalculator";
 
-//memberek
+const members=[{name:"Bendi"}]
+const active="Bendi"
 //aktív
 
 const HouseholdSalaryCalculator = () => {
@@ -15,7 +16,9 @@ const HouseholdSalaryCalculator = () => {
         />
       </header>
       <main>
-        <SalaryCalculator />
+        <SalaryCalculator 
+        active={active}/>
+        {/* szemelyre kattintva kulon kulon */}
         <HouseholdSummary />
       </main>
     </>

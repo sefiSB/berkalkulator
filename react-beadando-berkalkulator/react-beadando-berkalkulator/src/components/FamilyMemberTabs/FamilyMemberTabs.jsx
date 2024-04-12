@@ -1,8 +1,10 @@
 const FamilyMemberTabs = ({members}) => {
   return <div>
-    members.map(((member)=>{
+    {/* members.map(((member)=>(
+      <div class="col">
 
-    }))
+      </div>
+    ))) */}
   </div>;
 };
 
