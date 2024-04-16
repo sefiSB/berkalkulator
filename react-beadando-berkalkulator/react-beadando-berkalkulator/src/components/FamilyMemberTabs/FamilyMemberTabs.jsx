@@ -11,7 +11,7 @@ const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
     <div>
       <Nav variant="pills">
         {members.map((item, index) => (
-          <Nav.Item key={index}>
+          <Nav.Item key={index} className="tabs">
             <Nav.Link
               active={item.name == active.name}
               onClick={() => onTabClick(item)}
@@ -21,7 +21,7 @@ const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
           </Nav.Item>
         ))}
 
-        <Nav.Item>
+        <Nav.Item className="tabs">
           <Nav.Link
             onClick={() => onPlusClick({ name: "Új személy", brber: 0 })}
           >

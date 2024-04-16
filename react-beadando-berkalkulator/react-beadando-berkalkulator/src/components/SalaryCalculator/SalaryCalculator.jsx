@@ -12,11 +12,11 @@ const SalaryCalculator = ({ active, onSubmit }) => {
 
       <form onSubmit={handleSubmit}>
         <strong><label htmlFor="nev">Családnév</label></strong> <br />
-        <input type="text" name="nev" id="nev" />
+        <input type="text" name="nev" id="nev" placeholder={active.name} />
         <p>Add meg a családtagod nevét!</p>
 
         <strong><label htmlFor="brber">Bruttó bér</label></strong> <br />
-        <input type="number" name="brber" id="brber" />
+        <input type="number" name="brber" id="brber" placeholder={active.brber}/>
         <p>Add meg a bruttó béredet!</p>
         <button type="submit">Ok</button>
       </form>
