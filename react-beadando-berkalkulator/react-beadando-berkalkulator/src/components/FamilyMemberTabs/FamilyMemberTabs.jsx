@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 
+// eslint-disable-next-line react/prop-types
 const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
   /* const handlePlusClick = () => {
     onPlusClick();
