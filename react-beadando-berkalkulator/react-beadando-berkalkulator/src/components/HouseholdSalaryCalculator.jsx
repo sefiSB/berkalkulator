@@ -14,11 +14,15 @@ const HouseholdSalaryCalculator = () => {
     setActiveMember(memberName); // Update active member when a tab is clicked
   };
 
-  const[members, setMembers]  = [{ name: "Bendi",brber:10000 }, { name: "John",brber:1000 }, { name: "Alice",brber:20000 }]; // Sample members
+  const [members, setMembers] = useState([
+    { name: "Bendi", brber: 10000 },
+    { name: "John", brber: 1000 },
+    { name: "Alice", brber: 20000 }
+  ]);
 
-  const handlePlusClick = (newMember)=>{
-    setMembers([... newMember])
-  }
+  const handleChangeMember = (newMember) => {
+    setMembers([...members[members.length].name=]);
+  };
   return (
     <>
       <header>
@@ -26,12 +30,13 @@ const HouseholdSalaryCalculator = () => {
           members={members}
           active={activeMember}
           onTabClick={handleTabClick}
-          onPlusClick={handlePlusClick}
+          onPlusClick={handleChangeMember}
         />
       </header>
       <main>
         <SalaryCalculator 
-        active={activeMember}/>
+        active={activeMember}
+        oonPlusClick={handleNewMemberSubmit}/>
         {/* szemelyre kattintva kulon kulon */}
         <HouseholdSummary />
       </main>

@@ -2,6 +2,9 @@ import React from "react";
 import Nav from "react-bootstrap/Nav";
 
 const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
+  /* const handlePlusClick = () => {
+    onPlusClick();
+  }; */
   return (
     <div>
       <Nav variant="pills">
@@ -17,9 +20,9 @@ const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
         ))}
 
         <Nav.Item>
-        <Nav.Link onClick={()=>}>
-              +
-            </Nav.Link>
+        <Nav.Link onClick={()=>onPlusClick({ name: "Új személy", brber: 0 })}>
+            +
+          </Nav.Link>
         </Nav.Item>
       </Nav>
     </div>

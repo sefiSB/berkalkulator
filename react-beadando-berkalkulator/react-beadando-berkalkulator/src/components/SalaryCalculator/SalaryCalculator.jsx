@@ -1,4 +1,4 @@
-const SalaryCalculator = ({ active, onNewMemberSubmit }) => {
+const SalaryCalculator = ({ active, onPlusClick }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -10,7 +10,7 @@ const SalaryCalculator = ({ active, onNewMemberSubmit }) => {
     <div>
       <h1>{active} BÉRÉNEK KISZÁMÍTÁSA</h1>
 
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <strong><label htmlFor="nev">Családnév</label></strong> <br />
         <input type="text" name="nev" id="nev" />
         <p>Add meg a családtagod nevét!</p>
@@ -18,6 +18,7 @@ const SalaryCalculator = ({ active, onNewMemberSubmit }) => {
         <strong><label htmlFor="brber">Bruttó bér</label></strong> <br />
         <input type="number" name="brber" id="brber" />
         <p>Add meg a bruttó béredet!</p>
+        <button type="submit">Ok</button>
       </form>
     </div>
   );
