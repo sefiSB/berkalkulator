@@ -11,7 +11,7 @@ const HouseholdSalaryCalculator = () => {
   const [activeMember, setActiveMember] = useState("Bendi"); // State to store active member
 
   const handleTabClick = (memberName) => {
-    setActiveMember(memberName); // Update active member when a tab is clicked
+    setActiveMember(memberName); 
   };
 
   const [members, setMembers] = useState([
@@ -21,7 +21,7 @@ const HouseholdSalaryCalculator = () => {
   ]);
 
   const handleChangeMember = (newMember) => {
-    setMembers([...members[members.length].name=]);
+    setMembers([...members,{name:newMember.name,brber:newMember.brber}]);
   };
   return (
     <>
@@ -36,7 +36,7 @@ const HouseholdSalaryCalculator = () => {
       <main>
         <SalaryCalculator 
         active={activeMember}
-        oonPlusClick={handleNewMemberSubmit}/>
+        onPlusClick={handleChangeMember}/>
         {/* szemelyre kattintva kulon kulon */}
         <HouseholdSummary />
       </main>

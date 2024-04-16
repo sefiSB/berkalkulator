@@ -4,7 +4,7 @@ const SalaryCalculator = ({ active, onPlusClick }) => {
     const formData = new FormData(event.target);
     const name = formData.get('nev');
     const brber = formData.get('brber');
-    onNewMemberSubmit({ name, brber });
+    onPlusClick({ name, brber });
   };
   return (
     <div>
