@@ -8,7 +8,7 @@ const SalaryCalculator = ({ active, onSubmit }) => {
   };
   return (
     <div>
-      <h1>{active} BÉRÉNEK KISZÁMÍTÁSA</h1>
+      <h1>{active.name} BÉRÉNEK KISZÁMÍTÁSA</h1>
 
       <form onSubmit={handleSubmit}>
         <strong><label htmlFor="nev">Családnév</label></strong> <br />
