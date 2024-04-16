@@ -1,4 +1,11 @@
-const SalaryCalculator = ({ active }) => {
+const SalaryCalculator = ({ active, onNewMemberSubmit }) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const name = formData.get('nev');
+    const brber = formData.get('brber');
+    onNewMemberSubmit({ name, brber });
+  };
   return (
     <div>
       <h1>{active} BÉRÉNEK KISZÁMÍTÁSA</h1>
