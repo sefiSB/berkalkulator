@@ -11,7 +11,7 @@ const SalaryCalculator = ({ active, onSubmit }) => {
       <h1>{active.name} BÉRÉNEK KISZÁMÍTÁSA</h1>
 
       <form onSubmit={handleSubmit}>
-        <strong><label htmlFor="nev">Családnév</label></strong> <br />
+        <strong><label htmlFor="nev">Családtag neve</label></strong> <br />
         <input type="text" name="nev" id="nev" placeholder={active.name} />
         <p>Add meg a családtagod nevét!</p>
 

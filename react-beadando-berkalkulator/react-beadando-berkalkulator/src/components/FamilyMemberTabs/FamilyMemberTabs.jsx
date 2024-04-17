@@ -6,12 +6,11 @@ const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
   /* const handlePlusClick = () => {
     onPlusClick();
   }; */
-  console.log(active);
   return (
     <div>
       <Nav variant="pills">
-        {members.map((item, index) => (
-          <Nav.Item key={index} className="tabs">
+        {members.map((item) => (
+          <Nav.Item key={item.id} className="tabs">
             <Nav.Link
               active={item.name == active.name}
               onClick={() => onTabClick(item)}
