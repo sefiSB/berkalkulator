@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.15",
     "bootstrap": "^5.3.3",
     "mdb-react-ui-kit": "^8.0.0",
+    "mui": "^0.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",

@@ -1,6 +1,7 @@
 import FamilyMemberTabs from "./FamilyMemberTabs/FamilyMemberTabs";
 import HouseholdSummary from "./HouseholdSummary/HouseholdSummary";
 import SalaryCalculator from "./SalaryCalculator/SalaryCalculator";
+import TaxRelief from "./TaxRelief/TaxRelief";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
@@ -55,6 +56,10 @@ const HouseholdSalaryCalculator = () => {
       { id: activeMember.id, name: nname, brber: nbrber },
       ...partition2,
     ]);
+
+    /* const changeByTax = (name, brber) => {
+      console.log(name, brber);
+    } */
   };
   return (
     <>
@@ -68,7 +73,7 @@ const HouseholdSalaryCalculator = () => {
       </header>
       <main>
         <SalaryCalculator active={activeMember} onSubmit={changeActiveData} />
-
+        {/* <TaxRelief active={activeMember} onCheck={changeByTax} /> */}
         <HouseholdSummary />
       </main>
     </>
