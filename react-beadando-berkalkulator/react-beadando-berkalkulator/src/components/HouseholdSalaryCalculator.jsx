@@ -16,7 +16,9 @@ const HouseholdSalaryCalculator = () => {
   const [activeMember, setActiveMember] = useState(members[0]); // State to store active member
 
   const handleTabClick = (member) => {
-    setActiveMember(member);
+    let newMember = { id: member.id, name: member.name, brber: member.brber };
+    setActiveMember(newMember);
+    console.log(activeMember);
   };
 
   const handleChangeMember = (newMember) => {
@@ -28,25 +30,31 @@ const HouseholdSalaryCalculator = () => {
 
   const changeActiveData = (nname, nbrber) => {
     /* let a = members.find((member) => member.id === activeMember.id); */
-    let i=0;
-    let partition1=[];
-    let partition2=[];
-    while(i<members.length){
-      if(members[i].id!==activeMember.id){
-        partition1.push(members[i]);
+    let i = 0;
+    let partition1 = [];
+    let partition2 = [];
+    while (i < members.length) {
+      if (members[i].id == activeMember.id) {
+        break;
       }
+      partition1.push(members[i]);
       i++;
     }
-
-    while(i<members.length){
+    i++;
+    while (i < members.length) {
       partition2.push(members[i]);
       i++;
     }
-    activeMember.name = nname;
+    let nMember = { id: activeMember.id, name: nname, brber: nbrber };
+    /* activeMember.name = nname;
     activeMember.brber = nbrber;
-    
-    setMembers([...partition1, { id: activeMember.id, name: nname, brber: nbrber },...partition2]);
-    console.log(members);
+     */
+    setActiveMember(nMember);
+    setMembers([
+      ...partition1,
+      { id: activeMember.id, name: nname, brber: nbrber },
+      ...partition2,
+    ]);
   };
   return (
     <>
