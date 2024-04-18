@@ -2,25 +2,77 @@ import React from "react";
 
 const TaxRelief = ({ active, onChecked }) => {
   const handleCheck = (e) => {
-    onChecked(e.target.checked);
+    onChecked(e.target.checked, e.target.id);
   };
 
   return (
+    <>
     <div className="form-check form-switch">
       <input
         onClick={handleCheck}
         className="form-check-input"
         type="checkbox"
-        id="flexSwitchCheckDefault"
+        id="szja"
       />
       <label
         id="szjab"
         className="form-check-label"
         htmlFor="flexSwitchCheckDefault"
       >
-        Default switch checkbox input
+        25 év alattiak SZJA mentessége
       </label>
     </div>
+    <div className="form-check form-switch">
+      <input
+        onClick={handleCheck}
+        className="form-check-input"
+        type="checkbox"
+        id="frissHazasok"
+      />
+      <label
+        id="szjab"
+        className="form-check-label"
+        htmlFor="flexSwitchCheckDefault"
+      >
+        Friss házasok kedvezménye
+      </label>
+    </div>
+
+
+
+    <div className="form-check form-switch">
+      <input
+        onClick={handleCheck}
+        className="form-check-input"
+        type="checkbox"
+        id="szemelyiKedvezmeny"
+      />
+      <label
+        id="szjab"
+        className="form-check-label"
+        htmlFor="flexSwitchCheckDefault"
+      >
+        Friss házasok kedvezménye
+      </label>
+    </div>
+
+
+    <div className="form-check form-switch">
+      <input
+        onClick={handleCheck}
+        className="form-check-input"
+        type="checkbox"
+        id="csaladiKedvezmeny"
+      />
+      <label
+        id="szjab"
+        className="form-check-label"
+        htmlFor="csaladiKedvezmeny"
+      >
+        Friss házasok kedvezménye
+      </label>
+    </div>
+    </>
   );
 };
 

@@ -27,7 +27,7 @@ const SalaryCalculator = ({ active, onSubmit }) => {
     }
     onSubmit(active.name, Math.floor(value));
     console.log(active.brber);
-  }
+  };
   return (
     <div>
       <h1>{active.name} BÉRÉNEK KISZÁMÍTÁSA</h1>
@@ -63,12 +63,20 @@ const SalaryCalculator = ({ active, onSubmit }) => {
         value={active.brber}
         onChange={handleSliderChange}
       />
-       <Stack spacing={2} direction="row">
-      <Button onClick={handleButton} variant="outlined">-5%</Button>
-      <Button onClick={handleButton} variant="outlined">-1%</Button>
-      <Button onClick={handleButton} variant="outlined">+1%</Button>
-      <Button onClick={handleButton} variant="outlined">+5%</Button>
-    </Stack>
+      <Stack spacing={2} direction="row">
+        <Button onClick={handleButton} variant="outlined">
+          -5%
+        </Button>
+        <Button onClick={handleButton} variant="outlined">
+          -1%
+        </Button>
+        <Button onClick={handleButton} variant="outlined">
+          +1%
+        </Button>
+        <Button onClick={handleButton} variant="outlined">
+          +5%
+        </Button>
+      </Stack>
     </div>
   );
 };
