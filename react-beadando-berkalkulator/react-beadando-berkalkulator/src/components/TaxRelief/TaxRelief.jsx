@@ -1,25 +1,23 @@
 import React from "react";
 
-const TaxRelief = ({ active, onCheck }) => {
-
-    
-
+const TaxRelief = ({ active, onChecked }) => {
   const handleCheck = (e) => {
-    if(e.target.checked){
-    onCheck(true);}
-    else{
-        onCheck(false)
-    }
+    onChecked(e.target.checked);
   };
 
   return (
-    <div class="form-check form-switch">
+    <div className="form-check form-switch">
       <input
-        class="form-check-input"
+        onClick={handleCheck}
+        className="form-check-input"
         type="checkbox"
         id="flexSwitchCheckDefault"
       />
-      <label onClick={handleCheck} id="szjab" class="form-check-label" for="flexSwitchCheckDefault">
+      <label
+        id="szjab"
+        className="form-check-label"
+        htmlFor="flexSwitchCheckDefault"
+      >
         Default switch checkbox input
       </label>
     </div>

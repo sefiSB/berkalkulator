@@ -30,7 +30,6 @@ const HouseholdSalaryCalculator = () => {
   };
 
   const changeActiveData = (nname, nbrber) => {
-    /* let a = members.find((member) => member.id === activeMember.id); */
     let i = 0;
     let partition1 = [];
     let partition2 = [];
@@ -47,9 +46,6 @@ const HouseholdSalaryCalculator = () => {
       i++;
     }
     let nMember = { id: activeMember.id, name: nname, brber: nbrber };
-    /* activeMember.name = nname;
-    activeMember.brber = nbrber;
-     */
     setActiveMember(nMember);
     setMembers([
       ...partition1,
@@ -57,10 +53,16 @@ const HouseholdSalaryCalculator = () => {
       ...partition2,
     ]);
 
-    /* const changeByTax = (name, brber) => {
-      console.log(name, brber);
-    } */
   };
+  const changeByTax = (t) => {
+    let oldber=activeMember.brber;
+    if(t){
+      changeActiveData(activeMember.name, activeMember.brber*0.75);
+    }
+    else{
+      changeActiveData(activeMember.name, oldber);
+    }
+  }
   return (
     <>
       <header>
@@ -73,7 +75,7 @@ const HouseholdSalaryCalculator = () => {
       </header>
       <main>
         <SalaryCalculator active={activeMember} onSubmit={changeActiveData} />
-        {/* <TaxRelief active={activeMember} onCheck={changeByTax} /> */}
+        <TaxRelief active={activeMember} onChecked={changeByTax} />
         <HouseholdSummary />
       </main>
     </>
