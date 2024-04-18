@@ -52,7 +52,7 @@ const TaxRelief = ({ active, onChecked }) => {
         className="form-check-label"
         htmlFor="flexSwitchCheckDefault"
       >
-        Friss házasok kedvezménye
+        Személyi kedvezmény
       </label>
     </div>
 

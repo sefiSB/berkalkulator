@@ -11,12 +11,15 @@ import { useState } from "react";
 const active="Bendi" */
 //aktív
 const HouseholdSalaryCalculator = () => {
+  const countNetto = (brutto) => {
+    return Math.floor(brutto - brutto * 0.15 - brutto * 0.185);
+  };
   const [members, setMembers] = useState([
-    { id: 1, name: "Bendi", brber: 10000, netto: 10000},
-    { id: 2, name: "John", brber: 1000 ,netto: 1000},
-    { id: 3, name: "Alice", brber: 20000 ,netto: 20000},
+    { id: 1, name: "Bendi", brber: 1000, netto: countNetto(1000) },
+    { id: 2, name: "John", brber: 1000, netto: countNetto(1000) },
+    { id: 3, name: "Alice", brber: 20000, netto: countNetto(20000) },
   ]);
-  const [activeMember, setActiveMember] = useState(members[0]); // State to store active member
+  const [activeMember, setActiveMember] = useState(members[0]);
 
   const handleTabClick = (member) => {
     let newMember = { id: member.id, name: member.name, brber: member.brber };
@@ -27,7 +30,12 @@ const HouseholdSalaryCalculator = () => {
   const handleChangeMember = (newMember) => {
     setMembers([
       ...members,
-      { id: uuidv4(), name: newMember.name, brber: newMember.brber },
+      {
+        id: uuidv4(),
+        name: newMember.name,
+        brber: newMember.brber,
+        netto: countNetto(newMember.brber),
+      },
     ]);
   };
 
@@ -47,15 +55,24 @@ const HouseholdSalaryCalculator = () => {
       partition2.push(members[i]);
       i++;
     }
-    let nMember = { id: activeMember.id, name: nname, brber: nbrber, netto: activeMember.netto};
+    let nMember = {
+      id: activeMember.id,
+      name: nname,
+      brber: nbrber,
+      netto: activeMember.netto,
+    };
     setActiveMember(nMember);
     setMembers([
       ...partition1,
-      { id: activeMember.id, name: nname, brber: nbrber, netto: activeMember.netto},
+      {
+        id: activeMember.id,
+        name: nname,
+        brber: nbrber,
+        netto: activeMember.netto,
+      },
       ...partition2,
     ]);
   };
-
 
   const changeActiveNetto = (nnber) => {
     let i = 0;
@@ -73,11 +90,21 @@ const HouseholdSalaryCalculator = () => {
       partition2.push(members[i]);
       i++;
     }
-    let nMember = { id: activeMember.id, name: activeMember.name, netto: nnber };
+    let nMember = {
+      id: activeMember.id,
+      name: activeMember.name,
+      brber: activeMember.brber,
+      netto: nnber,
+    };
     setActiveMember(nMember);
     setMembers([
       ...partition1,
-      { id: activeMember.id, name: activeMember.name, netto: nnber },
+      {
+        id: activeMember.id,
+        name: activeMember.name,
+        brber: activeMember.brber,
+        netto: nnber,
+      },
       ...partition2,
     ]);
   };
@@ -85,9 +112,22 @@ const HouseholdSalaryCalculator = () => {
     switch (id) {
       case "szja":
         if (t) {
-          changeActiveNetto(activeMember.netto / 0.75);
+          if (activeMember.brber > 499952) {
+            let tobblet = activeMember.brber - 499952;
+            changeActiveNetto(
+              (activeMember.netto += activeMember.brber * 0.15 - tobblet * 0.15)
+            );
+          } else {
+            changeActiveNetto((activeMember.netto+activeMember.brber * 0.15));
+          }
         } else {
-          changeActiveNetto(activeMember.netto* 0.75);
+        if (activeMember.brber > 499952) {
+          let tobblet = activeMember.brber - 499952;
+          changeActiveNetto((activeMember.netto+tobblet*0.15-activeMember.brber * 0.15));
+          }
+          else{
+            changeActiveNetto((activeMember.netto-activeMember.brber * 0.15));
+          }
         }
         break;
       case "frissHazasok":
@@ -99,13 +139,22 @@ const HouseholdSalaryCalculator = () => {
         break;
       case "szemelyiKedvezmeny":
         if (t) {
-          changeActiveData(activeMember.name, activeMember.brber * 0.8);
+          if (activeMember.brber - activeMember.netto <= 77300) {
+            changeActiveNetto((activeMember.netto = activeMember.brber));
+          } else {
+            changeActiveNetto((activeMember.netto += 77300));
+          }
         } else {
-          changeActiveData(activeMember.name, activeMember.brber / 0.8);
+          if (activeMember.brber - activeMember.netto <= 77300) {
+            //elozore valahogy vissza kell allitani
+          } else {
+            changeActiveNetto((activeMember.netto -= 77300));
+          }
+          changeActiveNetto((activeMember.netto -= 77300));
         }
         break;
 
-        case "csaladiKedvezmeny":
+      case "csaladiKedvezmeny":
         if (t) {
           changeActiveData(activeMember.name, activeMember.brber * 0.7);
         } else {
