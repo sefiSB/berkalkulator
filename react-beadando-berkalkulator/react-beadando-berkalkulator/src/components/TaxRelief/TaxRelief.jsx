@@ -69,7 +69,7 @@ const TaxRelief = ({ active, onChecked }) => {
         className="form-check-label"
         htmlFor="csaladiKedvezmeny"
       >
-        Friss házasok kedvezménye
+        Családi kedvezmény
       </label>
     </div>
     </>

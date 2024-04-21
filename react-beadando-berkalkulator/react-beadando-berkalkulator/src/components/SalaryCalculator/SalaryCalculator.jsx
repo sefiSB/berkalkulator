@@ -30,7 +30,7 @@ const SalaryCalculator = ({ active, onSubmit }) => {
   };
   return (
     <div>
-      <h1>{active.name} BÉRÉNEK KISZÁMÍTÁSA</h1>
+      <h1 style={{textTransform:"uppercase"}}>{active.name} bérének kiszámítása</h1>
       <strong>
         <label htmlFor="nev">Családtag neve</label>
       </strong>{" "}

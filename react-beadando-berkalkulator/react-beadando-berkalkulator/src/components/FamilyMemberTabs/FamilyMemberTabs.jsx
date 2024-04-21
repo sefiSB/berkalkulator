@@ -1,6 +1,8 @@
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 
+
+
 const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
   const handleClick = (item) => {
     onTabClick(item);
@@ -16,6 +18,7 @@ const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
               active={item.id === active.id}
               onClick={() => handleClick(item)}
             >
+              
               {item.name}
             </Nav.Link>
           </Nav.Item>
