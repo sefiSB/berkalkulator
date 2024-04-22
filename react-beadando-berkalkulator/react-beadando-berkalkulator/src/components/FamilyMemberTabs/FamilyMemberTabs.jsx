@@ -3,16 +3,19 @@ import Nav from "react-bootstrap/Nav";
 
 
 
-const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick }) => {
+const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick,emptyMembers }) => {
   const handleClick = (item) => {
     onTabClick(item);
     console.log(members);
   };
+  
 
   return (
     <div>
       <Nav variant="pills">
-        {members.map((item) => (
+        
+        {
+        members.map((item) => (
           <Nav.Item key={item.id} className="tabs">
             <Nav.Link
               active={item.id === active.id}

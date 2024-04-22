@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Stack } from "@mui/material";
 
-const SalaryCalculator = ({ active, onSubmit }) => {
+
+const SalaryCalculator = ({ active, members, onSubmit, deleteMember }) => {
   const handleSubmit = () => {
     let name = document.querySelector("#nev").value;
     let brber = document.querySelector("#brber").value;
@@ -13,6 +14,10 @@ const SalaryCalculator = ({ active, onSubmit }) => {
     let slider = document.querySelector("#slider").value;
     onSubmit(active.name, +slider);
   };
+  const delMem = () => {
+    deleteMember(active.id);
+  }
+
 
   const handleButton = (e) => {
     let value = active.brber;
@@ -29,8 +34,12 @@ const SalaryCalculator = ({ active, onSubmit }) => {
     console.log(active.brber);
   };
   return (
+    <> 
     <div>
-      <h1 style={{textTransform:"uppercase"}}>{active.name} bérének kiszámítása</h1>
+      <div style={{display:"flex"}}>
+        <h1 style={{textTransform:"uppercase"}}>{active.name} bérének kiszámítása</h1>
+        <span onClick={delMem}>X</span>
+      </div>
       <strong>
         <label htmlFor="nev">Családtag neve</label>
       </strong>{" "}
@@ -41,7 +50,7 @@ const SalaryCalculator = ({ active, onSubmit }) => {
         id="nev"
         value={active.name}
         onChange={handleSubmit}
-      />
+        />
       <p>Add meg a családtagod nevét!</p>
       <strong>
         <label htmlFor="brber">Bruttó bér</label>
@@ -62,7 +71,7 @@ const SalaryCalculator = ({ active, onSubmit }) => {
         max="1000000"
         value={active.brber}
         onChange={handleSliderChange}
-      />
+        />
       <Stack spacing={2} direction="row">
         <Button onClick={handleButton} variant="outlined">
           -5%
@@ -78,6 +87,7 @@ const SalaryCalculator = ({ active, onSubmit }) => {
         </Button>
       </Stack>
     </div>
+        </>
   );
 };
 

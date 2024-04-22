@@ -53,12 +53,10 @@ p, h1, h2, h3, h4, h5, h6 {
 .tabs{
   border-radius: 10px;
   border: 3px solid grey;
-  margin: 10px;
+  margin: 5px;
 }
 
-.tabok{
-  
-}
+
 .bal{
   border-radius: 10px;
   border: 3px solid grey;

@@ -69,6 +69,17 @@ const HouseholdSalaryCalculator = () => {
     ]);
   };
 
+  const deleteMember = (id) => {
+    setMembers(members.filter((member) => member.id !== id));
+    if(id!=members[0].id){
+      setActiveMember(members[0]);
+    }
+    else{
+      setActiveMember(members[1]);
+    }
+
+  }
+
   const changeActiveData = (nname, nbrber) => {
     let i = 0;
     let partition1 = [];
@@ -247,6 +258,16 @@ const HouseholdSalaryCalculator = () => {
     changeActiveNetto(activeMember.brber - tax);
   };
 
+  
+
+  if(members.length==0){
+    console.log(members.length+"elotte");
+    let newMember={name:"Új személy",brber:0,netto:0,id:uuidv4(),szja:0,frissHazasok:0,szemelyiKedvezmeny:0,csaladiKedvezmeny:0};
+    setMembers([newMember]);
+    setActiveMember(newMember);
+    console.log(members.length+"utana");
+  }
+
   /* const changeByTax = (t, id) => {
     switch (id) {
       case "szja":
@@ -310,6 +331,7 @@ const HouseholdSalaryCalculator = () => {
           active={activeMember}
           onTabClick={handleTabClick}
           onPlusClick={handleChangeMember}
+          /* emptyMembers={addIfEmpty} */
           />
           </div>
       </header>
@@ -318,7 +340,9 @@ const HouseholdSalaryCalculator = () => {
           <div className="col bal">
             <SalaryCalculator
               active={activeMember}
+              members={members}
               onSubmit={changeActiveData}
+              deleteMember={deleteMember}
             />
             <TaxRelief active={activeMember} onChecked={checkBoxes} />
             <DatePopUp active={datePopUp}/>
