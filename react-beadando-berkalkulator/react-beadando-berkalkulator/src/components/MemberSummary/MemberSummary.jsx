@@ -1,12 +1,12 @@
 import React from "react";
 
-const MemberSummary = ({ active, onChecked }) => {
+const MemberSummary = ({ activeMember }) => {
   
 
   return (
     <>
         <h2>Számított nettó bér:</h2>
-        <div>{active.netto}</div>
+        <div>{activeMember.netto}</div>
     </>
   );
 };

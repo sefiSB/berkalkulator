@@ -6,7 +6,6 @@ import Nav from "react-bootstrap/Nav";
 const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick,emptyMembers }) => {
   const handleClick = (item) => {
     onTabClick(item);
-    console.log(members);
   };
   
 
