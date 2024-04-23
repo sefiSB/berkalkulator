@@ -14,7 +14,7 @@ const HouseholdSummary = ({members}) => {
       <tbody>
 
     {members.map((member) => (
-      <tr>
+      <tr key={member.id}>
         <td>{member.name}</td>
         <td>{member.brber}</td>
       </tr>

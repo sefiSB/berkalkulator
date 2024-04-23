@@ -9,7 +9,7 @@ const TaxRelief = ({ active, onChecked }) => {
     <>
     <div className="form-check form-switch">
       <input
-        onClick={handleCheck}
+        onChange={handleCheck}
         className="form-check-input"
         type="checkbox"
         id="szja"
@@ -24,7 +24,7 @@ const TaxRelief = ({ active, onChecked }) => {
     </div>
     <div className="form-check form-switch">
       <input
-        onClick={handleCheck}
+        onChange={handleCheck}
         className="form-check-input"
         type="checkbox"
         id="frissHazasok"
@@ -42,7 +42,7 @@ const TaxRelief = ({ active, onChecked }) => {
 
     <div className="form-check form-switch">
       <input
-        onClick={handleCheck}
+        onChange={handleCheck}
         className="form-check-input"
         type="checkbox"
         id="szemelyiKedvezmeny"
@@ -59,13 +59,13 @@ const TaxRelief = ({ active, onChecked }) => {
 
     <div className="form-check form-switch">
       <input
-        onClick={handleCheck}
+        onChange={handleCheck}
         className="form-check-input"
         type="checkbox"
         id="csaladiKedvezmeny"
       />
       <label
-        id="szjab"
+        id=""
         className="form-check-label"
         htmlFor="csaladiKedvezmeny"
       >

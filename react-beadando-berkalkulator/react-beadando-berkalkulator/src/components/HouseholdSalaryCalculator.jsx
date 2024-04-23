@@ -13,14 +13,14 @@ const active="Bendi" */
 //aktív
 const HouseholdSalaryCalculator = () => {
   const countNetto = (brutto) => {
-    return Math.floor(brutto - brutto * 0.15 - brutto * 0.185);
+    return Math.floor(brutto - brutto * 0.15 - brutto * 0.185); //szja és TB
   };
   const [members, setMembers] = useState([
     {
       id: 1,
       name: "Bendi",
-      brber: 1000,
-      netto: countNetto(1000),
+      brber: 500000,
+      netto: countNetto(500000),
       szja: 0,
       frissHazasok: 0,
       szemelyiKedvezmeny: 0,
@@ -49,12 +49,11 @@ const HouseholdSalaryCalculator = () => {
   ]);
   const [activeMember, setActiveMember] = useState(members[0]);
 
-  const [datePopUp,setDatePopUp]=useState(false);
+  const [datePopUp, setDatePopUp] = useState(false);
 
   const handleTabClick = (member) => {
     let newMember = { id: member.id, name: member.name, brber: member.brber };
     setActiveMember(newMember);
-    console.log(activeMember);
   };
 
   const handleChangeMember = (newMember) => {
@@ -71,14 +70,12 @@ const HouseholdSalaryCalculator = () => {
 
   const deleteMember = (id) => {
     setMembers(members.filter((member) => member.id !== id));
-    if(id!=members[0].id){
+    if (id != members[0].id) {
       setActiveMember(members[0]);
-    }
-    else{
+    } else {
       setActiveMember(members[1]);
     }
-
-  }
+  };
 
   const changeActiveData = (nname, nbrber) => {
     let i = 0;
@@ -198,142 +195,70 @@ const HouseholdSalaryCalculator = () => {
     ]);
   };
 
-  const checkBoxes = (eventID, t) => {
-    switch (eventID) {
+  const checkBoxes = (checked, targetID) => {
+    switch (targetID) {
       case "szja":
-        if (t) {
-          szja = 0;
+        if (checked) {
+          setActiveMember({name:activeMember.name,brber:activeMember.brber,netto:activeMember.netto,szja:1,frissHazasok:activeMember.frissHazasok,szemelyiKedvezmeny:activeMember.szemelyiKedvezmeny,csaladiKedvezmeny:activeMember.csaladiKedvezmeny});
         } else {
-          szja = 1;
+          setActiveMember({name:activeMember.name,brber:activeMember.brber,netto:activeMember.netto,szja:0,frissHazasok:activeMember.frissHazasok,szemelyiKedvezmeny:activeMember.szemelyiKedvezmeny,csaladiKedvezmeny:activeMember.csaladiKedvezmeny});
         }
         break;
-      case "frissHazasok":
-        if (!datePopUp){
-          setDatePopUp(true);
+
+      case "frissHazasok": //nincs megirva
+        
+        break;
+
+      case "szemelyiKedvezmeny": //nincs megirva
+        if (checked) {
+          
         }
-        break;
-      case "szemelyiKedvezmeny":
-        if (t) {
-          szemelyiKedvezmeny = 0;
-        } else {
-          szemelyiKedvezmeny = 1;
-        }
-        break;
-      case "csaladiKedvezmeny":
-        break;
     }
-    /* setActiveMember({activeMember, szja: szja, frissHazasok: frissHazasok, szemelyiKedvezmeny: szemelyiKedvezmeny, csaladiKedvezmeny: csaladiKedvezmeny}); */
-    changeActiveTaxes(
-      szja,
-      frissHazasok,
-      szemelyiKedvezmeny,
-      csaladiKedvezmeny
-    );
-    countTax();
+    countTax()
+    
   };
 
   const countTax = () => {
-    let tax = 0;
-    if (activeMember.szja == 1) {
-      if (activeMember.brber > 499952) {
-        tax += 499952 * 0.15;
+      let tax=activeMember.brber*0.185;
+      if(activeMember.szja==0){
+        tax+=activeMember.brber*0.15
       }
-    }
-    if (activeMember.szja == 0) {
-      tax += activeMember.brber * 0.15;
-    }
-    if (activeMember.frissHazasok == 1) {
-      tax -= 50000;
-    }
-    if (activeMember.csaladiKedvezmeny == 1) {
-      tax -= activeMember.brber * 0.3;
-    }
-    if (activeMember.szemelyiKedvezmeny == 1) {
-      if (tax < 77300) {
-        tax = 0;
-      } else {
-        tax -= 77300;
+      else{
+        if(activeMember.brber>499995){
+          tax+=(activeMember.brber-499995)*0.15
+        }
       }
-    }
-    changeActiveNetto(activeMember.brber - tax);
-  };
 
-  
-
-  if(members.length==0){
-    console.log(members.length+"elotte");
-    let newMember={name:"Új személy",brber:0,netto:0,id:uuidv4(),szja:0,frissHazasok:0,szemelyiKedvezmeny:0,csaladiKedvezmeny:0};
-    setMembers([newMember]);
-    setActiveMember(newMember);
-    console.log(members.length+"utana");
+      changeActiveNetto(activeMember.brber-tax);
   }
 
-  /* const changeByTax = (t, id) => {
-    switch (id) {
-      case "szja":
-        if (t) {
-          if (activeMember.brber > 499952) {
-            let tobblet = activeMember.brber - 499952;
-            changeActiveNetto(
-              (activeMember.netto += activeMember.brber * 0.15 - tobblet * 0.15)
-            );
-          } else {
-            changeActiveNetto((activeMember.netto+activeMember.brber * 0.15));
-          }
-        } else {
-        if (activeMember.brber > 499952) {
-          let tobblet = activeMember.brber - 499952;
-          changeActiveNetto((activeMember.netto+tobblet*0.15-activeMember.brber * 0.15));
-          }
-          else{
-            changeActiveNetto((activeMember.netto-activeMember.brber * 0.15));
-          }
-        }
-        break;
-      case "frissHazasok":
-        if (t) {
-          changeActiveData(activeMember.name, activeMember.brber * 0.9);
-        } else {
-          changeActiveData(activeMember.name, activeMember.brber / 0.9);
-        }
-        break;
-      case "szemelyiKedvezmeny":
-        if (t) {
-          if (activeMember.brber - activeMember.netto <= 77300) {
-            changeActiveNetto((activeMember.netto = activeMember.brber));
-          } else {
-            changeActiveNetto((activeMember.netto += 77300));
-          }
-        } else {
-          if (activeMember.brber - activeMember.netto <= 77300) {
-            //elozore valahogy vissza kell allitani
-          } else {
-            changeActiveNetto((activeMember.netto -= 77300));
-          }
-          changeActiveNetto((activeMember.netto -= 77300));
-        }
-        break;
+  if (members.length == 0) {
+    let newMember = {
+      name: "Új személy",
+      brber: 0,
+      netto: 0,
+      id: uuidv4(),
+      szja: 0,
+      frissHazasok: 0,
+      szemelyiKedvezmeny: 0,
+      csaladiKedvezmeny: 0,
+    };
+    setMembers([newMember]);
+    setActiveMember(newMember);
+  }
 
-      case "csaladiKedvezmeny":
-        if (t) {
-          changeActiveData(activeMember.name, activeMember.brber * 0.7);
-        } else {
-          changeActiveData(activeMember.name, activeMember.brber / 0.7);
-        }
-    }
-  }; */
   return (
     <>
       <header>
         <div className="tabok">
-        <FamilyMemberTabs
-          members={members}
-          active={activeMember}
-          onTabClick={handleTabClick}
-          onPlusClick={handleChangeMember}
-          /* emptyMembers={addIfEmpty} */
+          <FamilyMemberTabs
+            members={members}
+            active={activeMember}
+            onTabClick={handleTabClick}
+            onPlusClick={handleChangeMember}
+            /* emptyMembers={addIfEmpty} */
           />
-          </div>
+        </div>
       </header>
       <main>
         <div className="row">
@@ -345,11 +270,11 @@ const HouseholdSalaryCalculator = () => {
               deleteMember={deleteMember}
             />
             <TaxRelief active={activeMember} onChecked={checkBoxes} />
-            <DatePopUp active={datePopUp}/>
+            <DatePopUp active={datePopUp} />
             <MemberSummary active={activeMember} />
           </div>
           <div className="col jobb">
-          <HouseholdSummary members={members}/>
+            <HouseholdSummary members={members} />
           </div>
         </div>
       </main>
