@@ -4,13 +4,17 @@ import { useState } from "react";
 import Sustained from "./components/Sustained/Sustained";
 
 
-const TaxRelief = ({ active, onChecked,showDate,showInput}) => {
+const TaxRelief = ({ active, onChecked,showDate,showInput, changeData}) => {
   const handleCheck = (e) => {
     console.log(e.target.checked, e.target.id+ " checked")
     onChecked(e.target.checked, e.target.id);
   };
 
-  const [datePopUp, setDatePopUp] = useState(false);
+
+  const dateChange = (date) => {
+    changeData(date);
+  }
+  /* const [datePopUp, setDatePopUp] = useState(false); */
 
   return (
     <>
@@ -47,7 +51,7 @@ const TaxRelief = ({ active, onChecked,showDate,showInput}) => {
         Friss házasok kedvezménye
       </label>
     </div>
-    <DatePopUp active={datePopUp} show={showDate} />
+    <DatePopUp active={active} onDateChange={dateChange} show={showDate} />
 
     <div className="form-check form-switch">
       <input

@@ -8,9 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
 
-/* const members=[{name:"Bendi"},{name:"Jani"},{name:"Feri"}]
-const active="Bendi" */
-//aktív
 const HouseholdSalaryCalculator = () => {
   const countNetto = (brutto) => {
     return Math.floor(brutto - brutto * 0.15 - brutto * 0.185); //szja és TB
@@ -25,6 +22,7 @@ const HouseholdSalaryCalculator = () => {
       netto: countNetto(500000),
       szja: 1,
       frissHazasok: 0,
+      date: "2019-01-08",
       szemelyiKedvezmeny: 0,
       csaladiKedvezmeny: 0,
     },
@@ -35,6 +33,7 @@ const HouseholdSalaryCalculator = () => {
       netto: countNetto(1000),
       szja: 0,
       frissHazasok: 0,
+      date: "2023-01-01",
       szemelyiKedvezmeny: 0,
       csaladiKedvezmeny: 0,
     },
@@ -45,11 +44,16 @@ const HouseholdSalaryCalculator = () => {
       netto: countNetto(20000),
       szja: 0,
       frissHazasok: 0,
+      date: "2021-01-01",
       szemelyiKedvezmeny: 0,
       csaladiKedvezmeny: 0,
     },
   ]);
   const [activeMember, setActiveMember] = useState(members[0]);
+
+  const dataChange = (data) => {
+    setActiveMember(data);
+  }
 
 
   const handleTabClick = (member) => {
@@ -60,6 +64,7 @@ const HouseholdSalaryCalculator = () => {
       netto: member.netto,
       szja: member.szja,
       frissHazasok: member.frissHazasok,
+      date: member.date,
       szemelyiKedvezmeny: member.szemelyiKedvezmeny,
       csaladiKedvezmeny: member.csaladiKedvezmeny,
     };
@@ -73,6 +78,7 @@ const HouseholdSalaryCalculator = () => {
         id: uuidv4(),
         name: newMember.name,
         brber: newMember.brber,
+        date: newMember.date,
         netto: countNetto(newMember.brber),
       },
     ]);
@@ -87,8 +93,53 @@ const HouseholdSalaryCalculator = () => {
     }
   };
 
+  const changeActiveDate = (date) => {
+    let i = 0;
+    let partition1 = [];
+    let partition2 = [];
+    while (i < members.length) {
+      if (members[i].id == activeMember.id) {
+        break;
+      }
+      partition1.push(members[i]);
+      i++;
+    }
+    i++;
+    while (i < members.length) {
+      partition2.push(members[i]);
+      i++;
+    }
+    let nMember = {
+      id: activeMember.id,
+      name: activeMember.name,
+      brber: activeMember.brber,
+      netto: activeMember.netto,
+      szja: activeMember.szja,
+      frissHazasok: activeMember.frissHazasok,
+      date: date,
+      szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
+      csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
+    };
+    setActiveMember(nMember);
+    setMembers([
+      ...partition1,
+      {
+        id: activeMember.id,
+        name: activeMember.name,
+        brber: activeMember.brber,
+        netto: activeMember.netto,
+        szja: activeMember.szja,
+        frissHazasok: activeMember.frissHazasok,
+        date: date,
+        szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
+        csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
+      },
+      ...partition2,
+    ]);
+  }
+
   const changeActiveData = (nname, nbrber) => {
-    countTax();
+    /* countTax(); */
     let i = 0;
     let partition1 = [];
     let partition2 = [];
@@ -112,6 +163,7 @@ const HouseholdSalaryCalculator = () => {
       netto:activeMember.netto,
       szja: activeMember.szja,
       frissHazasok: activeMember.frissHazasok,
+      date: activeMember.date,
       szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
       csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
     };
@@ -125,6 +177,7 @@ const HouseholdSalaryCalculator = () => {
         netto: activeMember.netto,
         szja: activeMember.szja,
         frissHazasok: activeMember.frissHazasok,
+        date: activeMember.date,
         szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
         csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
       },
@@ -204,6 +257,7 @@ const HouseholdSalaryCalculator = () => {
       netto: activeMember.netto,
       szja: szja,
       frissHazasok: frissHazasok,
+      date: activeMember.date,
       szemelyiKedvezmeny: szemelyiKedvezmeny,
       csaladiKedvezmeny: csaladiKedvezmeny,
     };
@@ -220,6 +274,7 @@ const HouseholdSalaryCalculator = () => {
   };
 
   const checkBoxes = (checked, targetID) => {
+    const msDay=86400000;
     switch (targetID) {
       case "szja":
         if (checked) {
@@ -242,6 +297,7 @@ const HouseholdSalaryCalculator = () => {
 
       case "frissHazasok": //nincs megirva
         if(checked){
+
           setDatePopUp(true);
         }
         else{
@@ -310,6 +366,7 @@ const HouseholdSalaryCalculator = () => {
       id: uuidv4(),
       szja: 0,
       frissHazasok: 0,
+      date:null,
       szemelyiKedvezmeny: 0,
       csaladiKedvezmeny: 0,
     };
@@ -339,7 +396,7 @@ const HouseholdSalaryCalculator = () => {
               onSubmit={changeActiveData}
               deleteMember={deleteMember}
             />
-            <TaxRelief active={activeMember} onChecked={checkBoxes} showDate={datePopUp} showInput={numberPopUp}/>
+            <TaxRelief active={activeMember} onChecked={checkBoxes} showDate={datePopUp} showInput={numberPopUp} changeData={dataChange}/>
             
             <MemberSummary activeMember={activeMember} />
           </div>
