@@ -3,9 +3,10 @@ import HouseholdSummary from "./HouseholdSummary/HouseholdSummary";
 import SalaryCalculator from "./SalaryCalculator/SalaryCalculator";
 import TaxRelief from "./TaxRelief/TaxRelief";
 import MemberSummary from "./MemberSummary/MemberSummary";
-import DatePopUp from "./DatePopUp/DatePopUp";
+
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
+
 
 /* const members=[{name:"Bendi"},{name:"Jani"},{name:"Feri"}]
 const active="Bendi" */
@@ -14,6 +15,8 @@ const HouseholdSalaryCalculator = () => {
   const countNetto = (brutto) => {
     return Math.floor(brutto - brutto * 0.15 - brutto * 0.185); //szja és TB
   };
+  const [datePopUp, setDatePopUp] = useState(false);
+  const [numberPopUp, setNumberPopUp] = useState(false);
   const [members, setMembers] = useState([
     {
       id: 1,
@@ -48,7 +51,6 @@ const HouseholdSalaryCalculator = () => {
   ]);
   const [activeMember, setActiveMember] = useState(members[0]);
 
-  const [datePopUp, setDatePopUp] = useState(false);
 
   const handleTabClick = (member) => {
     let newMember = {
@@ -86,6 +88,7 @@ const HouseholdSalaryCalculator = () => {
   };
 
   const changeActiveData = (nname, nbrber) => {
+    countTax();
     let i = 0;
     let partition1 = [];
     let partition2 = [];
@@ -101,11 +104,12 @@ const HouseholdSalaryCalculator = () => {
       partition2.push(members[i]);
       i++;
     }
+    
     let nMember = {
       id: activeMember.id,
       name: nname,
       brber: nbrber,
-      netto: activeMember.netto,
+      netto:activeMember.netto,
       szja: activeMember.szja,
       frissHazasok: activeMember.frissHazasok,
       szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
@@ -177,7 +181,7 @@ const HouseholdSalaryCalculator = () => {
     szemelyiKedvezmeny,
     csaladiKedvezmeny
   ) => {
-    console.log(szja+" fasz")
+    console.log(szja+" f")
     let i = 0;
     let partition1 = [];
     let partition2 = [];
@@ -206,7 +210,7 @@ const HouseholdSalaryCalculator = () => {
     console.log(nMember.szja+" asdasd")
     setActiveMember(nMember);
     console.log(activeMember);
-    console.log("bomboclat")
+    console.log("b")
     setMembers([
       ...partition1,
       nMember,
@@ -237,10 +241,25 @@ const HouseholdSalaryCalculator = () => {
         break;
 
       case "frissHazasok": //nincs megirva
+        if(checked){
+          setDatePopUp(true);
+        }
+        else{
+          setDatePopUp(false);
+        }
         break;
 
       case "szemelyiKedvezmeny": //nincs megirva
         if (checked) {
+        }
+        break;
+
+      case "csaladiKedvezmeny": //nincs megirva
+        if (checked) {
+          setNumberPopUp(true);
+        }
+        else{
+          setNumberPopUp(false);
         }
     }
     countTax();
@@ -254,6 +273,30 @@ const HouseholdSalaryCalculator = () => {
       if (activeMember.brber > 499995) {
         tax += (activeMember.brber - 499995) * 0.15;
       }
+    }
+
+    if (activeMember.frissHazasok == 1) {
+      if(activeMember.brber-tax>5000){
+        tax -= 5000;
+      }
+      else
+      {
+        tax -= activeMember.brber-activeMember.netto;
+      }
+    }
+
+    if (activeMember.szemelyiKedvezmeny == 1) {
+      if(activeMember.brber-tax>77300){
+        tax -= 77300;
+      }
+      else
+      {
+        tax -= activeMember.brber-tax;
+      } 
+    }
+
+    if(activeMember.csaladiKedvezmeny>0){
+
     }
 
     changeActiveNetto(activeMember.brber - tax);
@@ -296,8 +339,8 @@ const HouseholdSalaryCalculator = () => {
               onSubmit={changeActiveData}
               deleteMember={deleteMember}
             />
-            <TaxRelief active={activeMember} onChecked={checkBoxes} />
-            <DatePopUp active={datePopUp} />
+            <TaxRelief active={activeMember} onChecked={checkBoxes} showDate={datePopUp} showInput={numberPopUp}/>
+            
             <MemberSummary activeMember={activeMember} />
           </div>
           <div className="col jobb">
