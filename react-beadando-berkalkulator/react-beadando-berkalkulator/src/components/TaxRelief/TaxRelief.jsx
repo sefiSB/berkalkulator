@@ -4,7 +4,10 @@ import { useState } from "react";
 import Sustained from "./components/Sustained/Sustained";
 
 
-const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInputs}) => {
+const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInputs,popUpClose}) => {
+
+  const [validDate, setValidDate] = useState(false);
+
   const handleCheck = (e) => {
     console.log(e.target.checked, e.target.id+ " checked")
     onChecked(e.target.checked, e.target.id);
@@ -14,13 +17,23 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
   }
 
   const dateChange = (date) => {
+    const msDay = 86400000;
+    if(new Date()-new Date(date) < 2*365*msDay){
+      setValidDate(true);
+    }
+    else{
+      setValidDate(false);
+    }
     changeData(date);
+  }
+
+  const closePopUp = () => {
+    popUpClose();
   }
   
 
   return (
     <>
-    {console.log(active)}
     <div className="form-check form-switch">
       <input
         checked={active.szja==1}
@@ -39,7 +52,7 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
     </div>
     <div className="form-check form-switch">
       <input
-        defaultChecked={active.frissHazasok==1}
+        checked={active.frissHazasok==1}
         onChange={handleCheck}
         className="form-check-input"
         type="checkbox"
@@ -53,11 +66,13 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
         Friss házasok kedvezménye
       </label>
     </div>
-    <DatePopUp active={active} onDateChange={dateChange} show={showDate} />
+    <div>{active.frissHazasok==1?validDate ? "A dátum megfelelő": "Nem megfelelő dátum":""}</div>
+
+    <DatePopUp active={active} onDateChange={dateChange} show={showDate} close={closePopUp} />
 
     <div className="form-check form-switch">
       <input
-        defaultChecked={active.szemelyiKedvezmeny==1}
+        checked={active.szemelyiKedvezmeny==1}
         onChange={handleCheck}
         className="form-check-input"
         type="checkbox"
@@ -75,7 +90,7 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
 
     <div className="form-check form-switch">
       <input
-        defaultChecked={active.csaladiKedvezmeny}
+        checked={active.csaladiKedvezmeny}
         onChange={handleCheck}
         className="form-check-input"
         type="checkbox"

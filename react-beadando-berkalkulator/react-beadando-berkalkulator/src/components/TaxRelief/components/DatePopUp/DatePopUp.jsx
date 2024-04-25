@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 
-const DatePopUp = ({ active, onDateChange, show }) => {
-    console.log(active.date)
-  const [selectedDate, setSelectedDate] = useState(active.date);
+const DatePopUp = ({ active, onDateChange, show,close }) => {
+  /* const [selectedDate, setSelectedDate] = useState(active.date); */
 
   const handleDateChange = (event) => {
-    console.log(event.target.value);
-    setSelectedDate(event.target.value);
+    onDateChange(event.target.value);
   };
 
   const handleSubmit = () => {
-    onDateChange(selectedDate);
+    
   };
 
   const modalStyle = {
@@ -37,7 +35,7 @@ const DatePopUp = ({ active, onDateChange, show }) => {
     return (
       <div className="modal" style={modalStyle}>
         <div className="modal-content" style={modalContentStyle}>
-          <span className="close" onClick={() => onDateChange(active?.date)}>
+          <span className="close" onClick={() => close()}>
             X
           </span>
           <div className="row">
@@ -48,11 +46,11 @@ const DatePopUp = ({ active, onDateChange, show }) => {
                 id="date"
                 name="date"
                 onChange={handleDateChange}
-                value={selectedDate}
+                value={active.date}
               />
             </div>
           </div>
-          <button onClick={handleSubmit}>Submit</button>
+          <button onClick={()=>{handleDateChange,close()}}>Submit</button>
         </div>
       </div>
     );

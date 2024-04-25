@@ -18,7 +18,7 @@ const HouseholdSalaryCalculator = () => {
       id: 1,
       name: "Bendi",
       brber: 500000,
-      netto: countNetto(500000),
+      /* netto: countNetto(500000), */
       szja: 1,
       frissHazasok: 0,
       date: "2019-01-08",
@@ -30,7 +30,7 @@ const HouseholdSalaryCalculator = () => {
       id: 2,
       name: "John",
       brber: 1000,
-      netto: countNetto(1000),
+      /* netto: countNetto(1000), */
       szja: 0,
       frissHazasok: 0,
       date: "2023-01-01",
@@ -42,7 +42,7 @@ const HouseholdSalaryCalculator = () => {
       id: 3,
       name: "Alice",
       brber: 20000,
-      netto: countNetto(20000),
+      /* netto: countNetto(20000), */
       szja: 0,
       frissHazasok: 0,
       date: "2021-01-01",
@@ -55,7 +55,10 @@ const HouseholdSalaryCalculator = () => {
   
 
   const dataChange = (data) => {
-    setActiveMember(data);
+    setActiveMember({
+      ...activeMember,
+      date: data,
+    });
   };
 
   const getFamilyInputs = (eltartottak, csaladiKedvezmeny) => {
@@ -74,7 +77,7 @@ const HouseholdSalaryCalculator = () => {
       id: member.id,
       name: member.name,
       brber: member.brber,
-      netto: member.netto,
+      /* netto: member.netto, */
       szja: member.szja,
       frissHazasok: member.frissHazasok,
       date: member.date,
@@ -93,7 +96,7 @@ const HouseholdSalaryCalculator = () => {
         name: newMember.name,
         brber: newMember.brber,
         date: newMember.date,
-        netto: countNetto(newMember.brber),
+        /* netto: countNetto(newMember.brber), */
         szja: newMember.szja,
         frissHazasok: newMember.frissHazasok,
         szemelyiKedvezmeny: newMember.szemelyiKedvezmeny,
@@ -132,7 +135,7 @@ const HouseholdSalaryCalculator = () => {
       id: activeMember.id,
       name: activeMember.name,
       brber: activeMember.brber,
-      netto: activeMember.netto,
+      /* netto: activeMember.netto, */
       szja: activeMember.szja,
       frissHazasok: activeMember.frissHazasok,
       date: date,
@@ -147,7 +150,7 @@ const HouseholdSalaryCalculator = () => {
         id: activeMember.id,
         name: activeMember.name,
         brber: activeMember.brber,
-        netto: activeMember.netto,
+        /* netto: activeMember.netto, */
         szja: activeMember.szja,
         frissHazasok: activeMember.frissHazasok,
         date: date,
@@ -181,7 +184,7 @@ const HouseholdSalaryCalculator = () => {
       id: activeMember.id,
       name: nname,
       brber: nbrber,
-      netto: activeMember.netto,
+      /* netto: activeMember.netto, */
       szja: activeMember.szja,
       frissHazasok: activeMember.frissHazasok,
       date: activeMember.date,
@@ -196,7 +199,7 @@ const HouseholdSalaryCalculator = () => {
         id: activeMember.id,
         name: nname,
         brber: nbrber,
-        netto: activeMember.netto,
+        /* netto: activeMember.netto, */
         szja: activeMember.szja,
         frissHazasok: activeMember.frissHazasok,
         date: activeMember.date,
@@ -208,50 +211,6 @@ const HouseholdSalaryCalculator = () => {
     ]);
   };
 
-  const changeActiveNetto = (nnber) => {
-    let i = 0;
-    let partition1 = [];
-    let partition2 = [];
-    while (i < members.length) {
-      if (members[i].id == activeMember.id) {
-        break;
-      }
-      partition1.push(members[i]);
-      i++;
-    }
-    i++;
-    while (i < members.length) {
-      partition2.push(members[i]);
-      i++;
-    }
-    let nMember = {
-      id: activeMember.id,
-      name: activeMember.name,
-      brber: activeMember.brber,
-      netto: nnber,
-      szja: activeMember.szja,
-      frissHazasok: activeMember.frissHazasok,
-      szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
-      csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
-      eltartottak: activeMember.eltartottak,
-    };
-    setActiveMember(nMember);
-    setMembers([
-      ...partition1,
-      {
-        id: activeMember.id,
-        name: activeMember.name,
-        brber: activeMember.brber,
-        netto: nnber,
-        szja: activeMember.szja,
-        frissHazasok: activeMember.frissHazasok,
-        szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
-        csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
-        eltartottak: activeMember.eltartottak,
-      },
-      ...partition2,
-    ]);
-  };
 
   const changeActiveTaxes = (
     szja,
@@ -260,7 +219,6 @@ const HouseholdSalaryCalculator = () => {
     csaladiKedvezmeny,
     eltartottak
   ) => {
-    console.log(szja + " f");
     let i = 0;
     let partition1 = [];
     let partition2 = [];
@@ -280,7 +238,7 @@ const HouseholdSalaryCalculator = () => {
       id: activeMember.id,
       name: activeMember.name,
       brber: activeMember.brber,
-      netto: activeMember.netto,
+      /* netto: activeMember.netto, */
       szja: szja,
       frissHazasok: frissHazasok,
       date: activeMember.date,
@@ -297,7 +255,7 @@ const HouseholdSalaryCalculator = () => {
   };
 
   const checkBoxes = (checked, targetID) => {
-    const msDay = 86400000;
+    
     switch (targetID) {
       case "szja":
         if (checked) {
@@ -322,8 +280,22 @@ const HouseholdSalaryCalculator = () => {
 
       case "frissHazasok": //nincs megirva
         if (checked) {
+          changeActiveTaxes(
+            activeMember.szja,
+            1,
+            activeMember.szemelyiKedvezmeny,
+            activeMember.csaladiKedvezmeny,
+            activeMember.eltartottak
+          );
           setDatePopUp(true);
         } else {
+          changeActiveTaxes(
+            activeMember.szja,
+            0,
+            activeMember.szemelyiKedvezmeny,
+            activeMember.csaladiKedvezmeny,
+            activeMember.eltartottak
+          );
           setDatePopUp(false);
         }
         break;
@@ -350,62 +322,11 @@ const HouseholdSalaryCalculator = () => {
 
       case "csaladiKedvezmeny": //nincs megirva
         if (checked) {
-          changeActiveTaxes(
-            activeMember.szja,
-            activeMember.frissHazasok,
-            activeMember.szemelyiKedvezmeny,
-            1,
-            activeMember.eltartottak
-          );
           setNumberPopUp(true);
         } else {
           setNumberPopUp(false);
         }
     }
-    countTax(); //ebben van a hiba
-  };
-
-  const countTax = () => {
-    let tax = activeMember.brber * 0.185;
-    if (activeMember.szja == 0) {
-      tax += activeMember.brber * 0.15;
-    } else {
-      if (activeMember.brber > 499995) {
-        tax += (activeMember.brber - 499995) * 0.15;
-      }
-    }
-
-    if (activeMember.frissHazasok == 1) {
-      if ((new Date() - activeMember.date) / msDay < 2 * 365) {
-        if (activeMember.brber - tax > 5000) {
-          tax -= 5000;
-        } else {
-          tax -= activeMember.brber - activeMember.netto;
-        }
-      }
-    }
-
-    if (activeMember.szemelyiKedvezmeny == 1) {
-      if (activeMember.brber - tax > 77300) {
-        tax -= 77300;
-      } else {
-        tax -= activeMember.brber - tax;
-      }
-    }
-
-    if (activeMember.csaladiKedvezmeny > 0) {
-      if (activeMember.csaladiKedvezmeny == 1) {
-        tax -= 10000 * eltartottak;
-      }
-      if (activeMember.csaladiKedvezmeny == 2) {
-        tax -= 20000 * eltartottak;
-      }
-      if (activeMember.csaladiKedvezmeny == 3) {
-        tax -= 33000 * eltartottak;
-      }
-    }
-
-    changeActiveNetto(activeMember.brber - tax);
   };
 
   if (members.length == 0) {
@@ -413,7 +334,7 @@ const HouseholdSalaryCalculator = () => {
     let newMember = {
       name: "Új személy",
       brber: 0,
-      netto: 0,
+      /* netto: 0, */
       id: uuidv4(),
       szja: 0,
       frissHazasok: 0,
@@ -453,6 +374,7 @@ const HouseholdSalaryCalculator = () => {
               showInput={numberPopUp}
               changeData={dataChange}
               familyInputs={getFamilyInputs}
+              popUpClose={() => setDatePopUp(false)}
             />
 
             <MemberSummary activeMember={activeMember} />
