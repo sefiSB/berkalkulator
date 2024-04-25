@@ -7,7 +7,6 @@ import MemberSummary from "./MemberSummary/MemberSummary";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
-
 const HouseholdSalaryCalculator = () => {
   const countNetto = (brutto) => {
     return Math.floor(brutto - brutto * 0.15 - brutto * 0.185); //szja és TB
@@ -56,7 +55,7 @@ const HouseholdSalaryCalculator = () => {
 
   const dataChange = (data) => {
     setActiveMember(data);
-  }
+  };
 
   const getFamilyInputs = (eltartottak, csaladiKedvezmeny) => {
     changeActiveTaxes(
@@ -66,9 +65,8 @@ const HouseholdSalaryCalculator = () => {
       csaladiKedvezmeny,
       eltartottak
     );
-    console.log(eltartottak+" "+csaladiKedvezmeny);
-  }
-
+    console.log(eltartottak + " " + csaladiKedvezmeny);
+  };
 
   const handleTabClick = (member) => {
     let newMember = {
@@ -158,7 +156,7 @@ const HouseholdSalaryCalculator = () => {
       },
       ...partition2,
     ]);
-  }
+  };
 
   const changeActiveData = (nname, nbrber) => {
     /* countTax(); */
@@ -177,12 +175,12 @@ const HouseholdSalaryCalculator = () => {
       partition2.push(members[i]);
       i++;
     }
-    
+
     let nMember = {
       id: activeMember.id,
       name: nname,
       brber: nbrber,
-      netto:activeMember.netto,
+      netto: activeMember.netto,
       szja: activeMember.szja,
       frissHazasok: activeMember.frissHazasok,
       date: activeMember.date,
@@ -261,7 +259,7 @@ const HouseholdSalaryCalculator = () => {
     csaladiKedvezmeny,
     eltartottak
   ) => {
-    console.log(szja+" f")
+    console.log(szja + " f");
     let i = 0;
     let partition1 = [];
     let partition2 = [];
@@ -289,20 +287,15 @@ const HouseholdSalaryCalculator = () => {
       csaladiKedvezmeny: csaladiKedvezmeny,
       eltartottak: eltartottak,
     };
-    console.log(nMember.szja+" asdasd")
+    console.log(nMember.szja + " asdasd");
     setActiveMember(nMember);
     console.log(activeMember);
-    console.log("b")
-    setMembers([
-      ...partition1,
-      nMember,
-      ...partition2,
-    ]);
-
+    console.log("b");
+    setMembers([...partition1, nMember, ...partition2]);
   };
 
   const checkBoxes = (checked, targetID) => {
-    const msDay=86400000;
+    const msDay = 86400000;
     switch (targetID) {
       case "szja":
         if (checked) {
@@ -313,7 +306,7 @@ const HouseholdSalaryCalculator = () => {
             activeMember.csaladiKedvezmeny,
             activeMember.eltartottak
           );
-          console.log(activeMember.szja+"taxok utan");
+          console.log(activeMember.szja + "taxok utan");
         } else {
           changeActiveTaxes(
             0,
@@ -326,25 +319,44 @@ const HouseholdSalaryCalculator = () => {
         break;
 
       case "frissHazasok": //nincs megirva
-        if(checked){
-
+        if (checked) {
           setDatePopUp(true);
-        }
-        else{
+        } else {
           setDatePopUp(false);
         }
         break;
 
       case "szemelyiKedvezmeny": //nincs megirva
         if (checked) {
+          changeActiveTaxes(
+            activeMember.szja,
+            activeMember.frissHazasok,
+            1,
+            activeMember.csaladiKedvezmeny,
+            activeMember.eltartottak
+          );
+        } else {
+          changeActiveTaxes(
+            activeMember.szja,
+            activeMember.frissHazasok,
+            0,
+            activeMember.csaladiKedvezmeny,
+            activeMember.eltartottak
+          );
         }
         break;
 
       case "csaladiKedvezmeny": //nincs megirva
         if (checked) {
+          changeActiveTaxes(
+            activeMember.szja,
+            activeMember.frissHazasok,
+            activeMember.szemelyiKedvezmeny,
+            1,
+            activeMember.eltartottak
+          );
           setNumberPopUp(true);
-        }
-        else{
+        } else {
           setNumberPopUp(false);
         }
     }
@@ -362,41 +374,40 @@ const HouseholdSalaryCalculator = () => {
     }
 
     if (activeMember.frissHazasok == 1) {
-      if(activeMember.brber-tax>5000){
-        tax -= 5000;
-      }
-      else
-      {
-        tax -= activeMember.brber-activeMember.netto;
+      if ((new Date() - activeMember.date) / msDay < 2 * 365) {
+        if (activeMember.brber - tax > 5000) {
+          tax -= 5000;
+        } else {
+          tax -= activeMember.brber - activeMember.netto;
+        }
       }
     }
 
     if (activeMember.szemelyiKedvezmeny == 1) {
-      if(activeMember.brber-tax>77300){
+      if (activeMember.brber - tax > 77300) {
         tax -= 77300;
+      } else {
+        tax -= activeMember.brber - tax;
       }
-      else
-      {
-        tax -= activeMember.brber-tax;
-      } 
     }
 
-    if(activeMember.csaladiKedvezmeny>0){
-      if(activeMember.csaladiKedvezmeny==1){
-        tax-= 10000*eltartottak;
+    if (activeMember.csaladiKedvezmeny > 0) {
+      if (activeMember.csaladiKedvezmeny == 1) {
+        tax -= 10000 * eltartottak;
       }
-      if(activeMember.csaladiKedvezmeny==2){
-        tax-= 20000*eltartottak;
+      if (activeMember.csaladiKedvezmeny == 2) {
+        tax -= 20000 * eltartottak;
       }
-      if(activeMember.csaladiKedvezmeny==3){
-        tax-= 33000*eltartottak;
+      if (activeMember.csaladiKedvezmeny == 3) {
+        tax -= 33000 * eltartottak;
       }
     }
 
     changeActiveNetto(activeMember.brber - tax);
   };
 
-  if (members.length == 0) {   //ne lehessen üres a calculator
+  if (members.length == 0) {
+    //ne lehessen üres a calculator
     let newMember = {
       name: "Új személy",
       brber: 0,
@@ -404,7 +415,7 @@ const HouseholdSalaryCalculator = () => {
       id: uuidv4(),
       szja: 0,
       frissHazasok: 0,
-      date:null,
+      date: null,
       szemelyiKedvezmeny: 0,
       csaladiKedvezmeny: 0,
     };
@@ -433,8 +444,15 @@ const HouseholdSalaryCalculator = () => {
               onSubmit={changeActiveData}
               deleteMember={deleteMember}
             />
-            <TaxRelief active={activeMember} onChecked={checkBoxes} showDate={datePopUp} showInput={numberPopUp} changeData={dataChange} familyInputs={getFamilyInputs}/>
-            
+            <TaxRelief
+              active={activeMember}
+              onChecked={checkBoxes}
+              showDate={datePopUp}
+              showInput={numberPopUp}
+              changeData={dataChange}
+              familyInputs={getFamilyInputs}
+            />
+
             <MemberSummary activeMember={activeMember} />
           </div>
           <div className="col jobb">
