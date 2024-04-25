@@ -25,6 +25,7 @@ const HouseholdSalaryCalculator = () => {
       date: "2019-01-08",
       szemelyiKedvezmeny: 0,
       csaladiKedvezmeny: 0,
+      eltartottak: 0,
     },
     {
       id: 2,
@@ -36,6 +37,7 @@ const HouseholdSalaryCalculator = () => {
       date: "2023-01-01",
       szemelyiKedvezmeny: 0,
       csaladiKedvezmeny: 0,
+      eltartottak: 0,
     },
     {
       id: 3,
@@ -47,12 +49,24 @@ const HouseholdSalaryCalculator = () => {
       date: "2021-01-01",
       szemelyiKedvezmeny: 0,
       csaladiKedvezmeny: 0,
+      eltartottak: 0,
     },
   ]);
   const [activeMember, setActiveMember] = useState(members[0]);
 
   const dataChange = (data) => {
     setActiveMember(data);
+  }
+
+  const getFamilyInputs = (eltartottak, csaladiKedvezmeny) => {
+    changeActiveTaxes(
+      activeMember.szja,
+      activeMember.frissHazasok,
+      activeMember.szemelyiKedvezmeny,
+      csaladiKedvezmeny,
+      eltartottak
+    );
+    console.log(eltartottak+" "+csaladiKedvezmeny);
   }
 
 
@@ -67,6 +81,7 @@ const HouseholdSalaryCalculator = () => {
       date: member.date,
       szemelyiKedvezmeny: member.szemelyiKedvezmeny,
       csaladiKedvezmeny: member.csaladiKedvezmeny,
+      eltartottak: member.eltartottak,
     };
     setActiveMember(newMember);
   };
@@ -80,6 +95,11 @@ const HouseholdSalaryCalculator = () => {
         brber: newMember.brber,
         date: newMember.date,
         netto: countNetto(newMember.brber),
+        szja: newMember.szja,
+        frissHazasok: newMember.frissHazasok,
+        szemelyiKedvezmeny: newMember.szemelyiKedvezmeny,
+        csaladiKedvezmeny: newMember.csaladiKedvezmeny,
+        eltartottak: newMember.eltartottak,
       },
     ]);
   };
@@ -119,6 +139,7 @@ const HouseholdSalaryCalculator = () => {
       date: date,
       szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
       csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
+      eltartottak: activeMember.eltartottak,
     };
     setActiveMember(nMember);
     setMembers([
@@ -133,6 +154,7 @@ const HouseholdSalaryCalculator = () => {
         date: date,
         szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
         csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
+        eltartottak: activeMember.eltartottak,
       },
       ...partition2,
     ]);
@@ -166,6 +188,7 @@ const HouseholdSalaryCalculator = () => {
       date: activeMember.date,
       szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
       csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
+      eltartottak: activeMember.eltartottak,
     };
     setActiveMember(nMember);
     setMembers([
@@ -180,6 +203,7 @@ const HouseholdSalaryCalculator = () => {
         date: activeMember.date,
         szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
         csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
+        eltartottak: activeMember.eltartottak,
       },
       ...partition2,
     ]);
@@ -210,6 +234,7 @@ const HouseholdSalaryCalculator = () => {
       frissHazasok: activeMember.frissHazasok,
       szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
       csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
+      eltartottak: activeMember.eltartottak,
     };
     setActiveMember(nMember);
     setMembers([
@@ -223,6 +248,7 @@ const HouseholdSalaryCalculator = () => {
         frissHazasok: activeMember.frissHazasok,
         szemelyiKedvezmeny: activeMember.szemelyiKedvezmeny,
         csaladiKedvezmeny: activeMember.csaladiKedvezmeny,
+        eltartottak: activeMember.eltartottak,
       },
       ...partition2,
     ]);
@@ -232,7 +258,8 @@ const HouseholdSalaryCalculator = () => {
     szja,
     frissHazasok,
     szemelyiKedvezmeny,
-    csaladiKedvezmeny
+    csaladiKedvezmeny,
+    eltartottak
   ) => {
     console.log(szja+" f")
     let i = 0;
@@ -260,6 +287,7 @@ const HouseholdSalaryCalculator = () => {
       date: activeMember.date,
       szemelyiKedvezmeny: szemelyiKedvezmeny,
       csaladiKedvezmeny: csaladiKedvezmeny,
+      eltartottak: eltartottak,
     };
     console.log(nMember.szja+" asdasd")
     setActiveMember(nMember);
@@ -282,7 +310,8 @@ const HouseholdSalaryCalculator = () => {
             1,
             activeMember.frissHazasok,
             activeMember.szemelyiKedvezmeny,
-            activeMember.csaladiKedvezmeny
+            activeMember.csaladiKedvezmeny,
+            activeMember.eltartottak
           );
           console.log(activeMember.szja+"taxok utan");
         } else {
@@ -290,7 +319,8 @@ const HouseholdSalaryCalculator = () => {
             0,
             activeMember.frissHazasok,
             activeMember.szemelyiKedvezmeny,
-            activeMember.csaladiKedvezmeny
+            activeMember.csaladiKedvezmeny,
+            activeMember.eltartottak
           );
         }
         break;
@@ -352,13 +382,21 @@ const HouseholdSalaryCalculator = () => {
     }
 
     if(activeMember.csaladiKedvezmeny>0){
-
+      if(activeMember.csaladiKedvezmeny==1){
+        tax-= 10000*eltartottak;
+      }
+      if(activeMember.csaladiKedvezmeny==2){
+        tax-= 20000*eltartottak;
+      }
+      if(activeMember.csaladiKedvezmeny==3){
+        tax-= 33000*eltartottak;
+      }
     }
 
     changeActiveNetto(activeMember.brber - tax);
   };
 
-  if (members.length == 0) {
+  if (members.length == 0) {   //ne lehessen üres a calculator
     let newMember = {
       name: "Új személy",
       brber: 0,
@@ -383,7 +421,6 @@ const HouseholdSalaryCalculator = () => {
             active={activeMember}
             onTabClick={handleTabClick}
             onPlusClick={handleChangeMember}
-            /* emptyMembers={addIfEmpty} */
           />
         </div>
       </header>
@@ -396,7 +433,7 @@ const HouseholdSalaryCalculator = () => {
               onSubmit={changeActiveData}
               deleteMember={deleteMember}
             />
-            <TaxRelief active={activeMember} onChecked={checkBoxes} showDate={datePopUp} showInput={numberPopUp} changeData={dataChange}/>
+            <TaxRelief active={activeMember} onChecked={checkBoxes} showDate={datePopUp} showInput={numberPopUp} changeData={dataChange} familyInputs={getFamilyInputs}/>
             
             <MemberSummary activeMember={activeMember} />
           </div>

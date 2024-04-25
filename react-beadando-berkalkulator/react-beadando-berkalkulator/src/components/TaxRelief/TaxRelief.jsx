@@ -4,12 +4,14 @@ import { useState } from "react";
 import Sustained from "./components/Sustained/Sustained";
 
 
-const TaxRelief = ({ active, onChecked,showDate,showInput, changeData}) => {
+const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInputs}) => {
   const handleCheck = (e) => {
     console.log(e.target.checked, e.target.id+ " checked")
     onChecked(e.target.checked, e.target.id);
   };
-
+  const getValue = (eltartott, kedvezm) => {
+    familyInputs(eltartott, kedvezm);
+  }
 
   const dateChange = (date) => {
     changeData(date);
@@ -87,7 +89,7 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData}) => {
         Családi kedvezmény
       </label>
     </div>
-    <Sustained show={showInput}/>
+    <Sustained show={showInput} sendValue={getValue} />
     </>
   );
 };

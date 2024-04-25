@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Sustained = ({ show }) => {
+const Sustained = ({ show, sendValue }) => {
   const [eltartott, setEltartott] = useState(0);
   const [kedvezm, setKedvezm] = useState(0);
 
@@ -8,11 +8,13 @@ const Sustained = ({ show }) => {
     const value = parseInt(event.target.value);
     setEltartott(value > 3 ? 3 : value);
     setKedvezm((prevKedvezm) => (prevKedvezm > value ? value : prevKedvezm));
+    sendValue(value > 3 ? 3 : value, kedvezm > value ? value : kedvezm);
   };
 
   const handleKedvezmChange = (event) => {
     const value = parseInt(event.target.value);
     setKedvezm(value > eltartott ? eltartott : value);
+    sendValue(eltartott, value > eltartott ? eltartott : value);
   };
 
   if (show) {
@@ -21,6 +23,7 @@ const Sustained = ({ show }) => {
         <div>
           <label htmlFor="eltartott">Eltartottak száma:</label>
           <input
+            style={{ width: "50px" }}
             type="number"
             name="eltartott"
             id="eltartott"
@@ -28,8 +31,10 @@ const Sustained = ({ show }) => {
             value={eltartott}
             onChange={handleEltartottChange}
           />
+          <br />
           <label htmlFor="kedv">Kedvezményezettek száma:</label>
           <input
+            style={{ width: "50px" }}
             type="number"
             name="kedv"
             id="kedv"
