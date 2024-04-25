@@ -16,14 +16,14 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
   const dateChange = (date) => {
     changeData(date);
   }
-  /* const [datePopUp, setDatePopUp] = useState(false); */
+  
 
   return (
     <>
     {console.log(active)}
     <div className="form-check form-switch">
       <input
-        defaultChecked={active.szja==1}
+        checked={active.szja==1}
         onChange={handleCheck}
         className="form-check-input"
         type="checkbox"

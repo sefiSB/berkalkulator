@@ -52,6 +52,7 @@ const HouseholdSalaryCalculator = () => {
     },
   ]);
   const [activeMember, setActiveMember] = useState(members[0]);
+  
 
   const dataChange = (data) => {
     setActiveMember(data);
@@ -287,7 +288,8 @@ const HouseholdSalaryCalculator = () => {
       csaladiKedvezmeny: csaladiKedvezmeny,
       eltartottak: eltartottak,
     };
-    console.log(nMember.szja + " asdasd");
+    console.log(nMember , " asdasd");
+
     setActiveMember(nMember);
     console.log(activeMember);
     console.log("b");
@@ -360,7 +362,7 @@ const HouseholdSalaryCalculator = () => {
           setNumberPopUp(false);
         }
     }
-    countTax();
+    countTax(); //ebben van a hiba
   };
 
   const countTax = () => {
