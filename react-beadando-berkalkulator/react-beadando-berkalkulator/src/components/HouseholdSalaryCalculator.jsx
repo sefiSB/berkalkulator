@@ -8,9 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
 const HouseholdSalaryCalculator = () => {
-  const countNetto = (brutto) => {
-    return Math.floor(brutto - brutto * 0.15 - brutto * 0.185); //szja és TB
-  };
   const [datePopUp, setDatePopUp] = useState(false);
   const [numberPopUp, setNumberPopUp] = useState(false);
   const [members, setMembers] = useState([

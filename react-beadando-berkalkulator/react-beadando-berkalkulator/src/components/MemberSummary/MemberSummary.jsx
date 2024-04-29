@@ -1,4 +1,5 @@
 import React from "react";
+import { act } from "react";
 
 const MemberSummary = ({ activeMember }) => {
   
@@ -25,11 +26,7 @@ const MemberSummary = ({ activeMember }) => {
     }
 
     if (activeMember.szemelyiKedvezmeny == 1) {
-      if (activeMember.brber - tax > 77300) {
         tax -= 77300;
-      } else {
-        tax -= activeMember.brber - tax;
-      }
     }
 
     if (activeMember.csaladiKedvezmeny > 0) {
@@ -44,7 +41,13 @@ const MemberSummary = ({ activeMember }) => {
       }
     }
 
-    return activeMember.brber - tax;
+    if(activeMember.brber-tax>activeMember.brber){
+      return activeMember.brber;
+    }
+    else{
+      return activeMember.brber - tax;
+    }
+
   };
 
   return (
