@@ -28,6 +28,7 @@ const Sustained = ({ show, sendValue }) => {
             name="eltartott"
             id="eltartott"
             max={3}
+            min={0}
             value={eltartott}
             onChange={handleEltartottChange}
           />
@@ -39,6 +40,7 @@ const Sustained = ({ show, sendValue }) => {
             name="kedv"
             id="kedv"
             max={eltartott}
+            min={0}
             value={kedvezm}
             onChange={handleKedvezmChange}
           />

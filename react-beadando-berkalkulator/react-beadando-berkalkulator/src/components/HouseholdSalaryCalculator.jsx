@@ -320,8 +320,22 @@ const HouseholdSalaryCalculator = () => {
       case "csaladiKedvezmeny": //nincs megirva
         if (checked) {
           setNumberPopUp(true);
+          changeActiveTaxes(
+            activeMember.szja,
+            activeMember.frissHazasok,
+            activeMember.szemelyiKedvezmeny,
+            1,
+            activeMember.eltartottak
+          );
         } else {
           setNumberPopUp(false);
+          changeActiveTaxes(
+            activeMember.szja,
+            activeMember.frissHazasok,
+            activeMember.szemelyiKedvezmeny,
+            0,
+            0,
+          );
         }
     }
   };

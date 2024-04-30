@@ -68,7 +68,7 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
     </div>
     <div>{active.frissHazasok==1?validDate ? "A dátum megfelelő": "Nem megfelelő dátum":""}</div>
 
-    <DatePopUp active={active} onDateChange={dateChange} show={showDate} close={closePopUp} />
+    <DatePopUp active={active} onDateChange={dateChange} show={showDate} close={closePopUp}/>
 
     <div className="form-check form-switch">
       <input
@@ -90,7 +90,7 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
 
     <div className="form-check form-switch">
       <input
-        checked={active.csaladiKedvezmeny}
+        checked={active.csaladiKedvezmeny!=0}
         onChange={handleCheck}
         className="form-check-input"
         type="checkbox"
