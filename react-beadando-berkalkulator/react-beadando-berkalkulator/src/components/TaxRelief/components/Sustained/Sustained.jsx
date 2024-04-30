@@ -1,24 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { act } from "react";
 
 const Sustained = ({ show, sendValue,active }) => {
-  const [eltartott, setEltartott] = useState(1);
-  const [kedvezm, setKedvezm] = useState(1);
+  const [eltartott, setEltartott] = useState(active.eltartottak);
+  const [kedvezm, setKedvezm] = useState(active.csaladiKedvezmeny);
+
+  useEffect(() => {
+    console.log("active ", active.eltartottak, active.csaladiKedvezmeny);
+    setKedvezm(active.csaladiKedvezmeny);
+    setEltartott(active.eltartottak);
+  }, [active]
+  )
 
   const handleEltartottChange = (event) => {
     const value = parseInt(event.target.value);
     setEltartott(value > 3 ? 3 : value);
-    setKedvezm((prevKedvezm) => (prevKedvezm > value ? value : prevKedvezm));
+    setKedvezm((prevKedvezm) => {return prevKedvezm > value ? value : prevKedvezm});
     sendValue(value > 3 ? 3 : value, kedvezm > value ? value : kedvezm);
   };
 
   const handleKedvezmChange = (event) => {
     const value = parseInt(event.target.value);
+    console.log("valami ",eltartott)
     setKedvezm(value > eltartott ? eltartott : value);
     sendValue(eltartott, value > eltartott ? eltartott : value);
   };
 
-  if (show && active.eltartott!=0 && active.csaladiKedvezmeny!=0) {
+  if (active.csaladiKedvezmeny > 0) {
     return (
       <div>
         <div>

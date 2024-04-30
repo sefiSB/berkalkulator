@@ -215,6 +215,7 @@ const HouseholdSalaryCalculator = () => {
     csaladiKedvezmeny,
     eltartottak
   ) => {
+    console.log("csaladi ",eltartottak,csaladiKedvezmeny)
     let i = 0;
     let partition1 = [];
     let partition2 = [];

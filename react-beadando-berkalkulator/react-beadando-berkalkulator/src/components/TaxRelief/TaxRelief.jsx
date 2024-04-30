@@ -17,7 +17,7 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
 
   const dateChange = (date) => {
     const msDay = 86400000;
-    if(new Date()-new Date(date) < 2*365*msDay){
+    if((new Date()-new Date(date) < 2*365*msDay) && (new Date()-new Date(date) > 0)){
       setValidDate(true);
     }
     else{
