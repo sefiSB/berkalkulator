@@ -32,7 +32,6 @@ const SalaryCalculator = ({ active, members, onSubmit, deleteMember }) => {
       value = value + value * 0.05;
     }
     onSubmit(active.name, Math.floor(value));
-    console.log(active.brber);
   };
   return (
     <> 

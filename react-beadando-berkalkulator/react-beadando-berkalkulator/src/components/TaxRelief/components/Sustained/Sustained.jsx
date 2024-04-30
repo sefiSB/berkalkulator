@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { act } from "react";
 
-const Sustained = ({ show, sendValue }) => {
-  const [eltartott, setEltartott] = useState(0);
-  const [kedvezm, setKedvezm] = useState(0);
+const Sustained = ({ show, sendValue,active }) => {
+  const [eltartott, setEltartott] = useState(1);
+  const [kedvezm, setKedvezm] = useState(1);
 
   const handleEltartottChange = (event) => {
     const value = parseInt(event.target.value);
@@ -17,7 +18,7 @@ const Sustained = ({ show, sendValue }) => {
     sendValue(eltartott, value > eltartott ? eltartott : value);
   };
 
-  if (show) {
+  if (show && active.eltartott!=0 && active.csaladiKedvezmeny!=0) {
     return (
       <div>
         <div>

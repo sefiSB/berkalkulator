@@ -9,7 +9,6 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
   const [validDate, setValidDate] = useState(false);
 
   const handleCheck = (e) => {
-    console.log(e.target.checked, e.target.id+ " checked")
     onChecked(e.target.checked, e.target.id);
   };
   const getValue = (eltartott, kedvezm) => {
@@ -66,9 +65,9 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
         Friss házasok kedvezménye
       </label>
     </div>
-    <div>{active.frissHazasok==1?validDate ? "A dátum megfelelő": "Nem megfelelő dátum":""}</div>
+    
 
-    <DatePopUp active={active} onDateChange={dateChange} show={showDate} close={closePopUp}/>
+    <DatePopUp active={active} dateChange={dateChange} show={showDate} validate={validDate}/>
 
     <div className="form-check form-switch">
       <input
@@ -104,7 +103,7 @@ const TaxRelief = ({ active, onChecked,showDate,showInput, changeData,familyInpu
         Családi kedvezmény
       </label>
     </div>
-    <Sustained show={showInput} sendValue={getValue} />
+    <Sustained show={showInput} sendValue={getValue} active={active}/>
     </>
   );
 };

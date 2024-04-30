@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import SelectedDate from "./components/SelectDate/SelectDate";
+import { green, red } from "@mui/material/colors";
 
-const DatePopUp = ({ active, onDateChange, show,close }) => {
-  /* const [selectedDate, setSelectedDate] = useState(active.date); */
+const DatePopUp = ({ active, dateChange, show, validate }) => {
+  const [showPopUp, setShowPopUp] = useState(false);
 
   const handleDateChange = (event) => {
-    onDateChange(event.target.value);
+    dateChange(event.target.value);
   };
 
-  const handleSubmit = () => {
-    
+  const showSelectDate = () => {
+    setShowPopUp(true);
+  };
+
+  const closePopUp = () => {
+    setShowPopUp(false);
   };
 
   const modalStyle = {
@@ -30,28 +36,18 @@ const DatePopUp = ({ active, onDateChange, show,close }) => {
     border: "1px solid #888",
     width: "80%",
   };
-
   if (show) {
     return (
-      <div className="modal" style={modalStyle}>
-        <div className="modal-content" style={modalContentStyle}>
-          <span className="close" onClick={() => close()}>
-            X
-          </span>
-          <div className="row">
-            <div className="col">
-              <label htmlFor="date">Dátum:</label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                onChange={handleDateChange}
-                value={active.date}
-              />
-            </div>
-          </div>
-          <button onClick={()=>{handleDateChange,close()}}>Submit</button>
-        </div>
+      <div style={ active.frissHazasok==1 ? {display:"inline-block"} : {display:"none"}}>  
+        <button onClick={showSelectDate}>Dátum hozzáadása</button>
+        <SelectedDate
+          active={active}
+          onDateChange={handleDateChange}
+          show={active.frisshazasok!=0 && showPopUp}
+          close={closePopUp}
+          />
+          
+        <div>{active.frissHazasok==1 && validate ? <p style={{color:green[500]}}>A dátum megfelelő</p> : <p style={{color:red[500]}}>Nem megfelelő dátum</p>}</div>
       </div>
     );
   } else {

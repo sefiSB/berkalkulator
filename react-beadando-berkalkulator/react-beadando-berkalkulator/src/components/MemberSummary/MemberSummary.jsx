@@ -1,5 +1,5 @@
 import React from "react";
-import { act } from "react";
+
 
 const MemberSummary = ({ activeMember }) => {
   
@@ -17,11 +17,7 @@ const MemberSummary = ({ activeMember }) => {
     if (activeMember.frissHazasok == 1) {
       const msDay = 86400000;
       if ((new Date() - new Date(activeMember.date))< 2 * 365*msDay) {
-        if (activeMember.brber - tax > 5000) {
-          tax -= 5000;
-        } else {
-          tax -= activeMember.brber - activeMember.netto;
-        }
+        tax-= 50000;
       }
     }
 

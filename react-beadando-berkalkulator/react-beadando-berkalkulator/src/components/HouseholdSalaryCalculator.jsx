@@ -66,7 +66,6 @@ const HouseholdSalaryCalculator = () => {
       csaladiKedvezmeny,
       eltartottak
     );
-    console.log(eltartottak + " " + csaladiKedvezmeny);
   };
 
   const handleTabClick = (member) => {
@@ -243,11 +242,8 @@ const HouseholdSalaryCalculator = () => {
       csaladiKedvezmeny: csaladiKedvezmeny,
       eltartottak: eltartottak,
     };
-    console.log(nMember , " asdasd");
 
     setActiveMember(nMember);
-    console.log(activeMember);
-    console.log("b");
     setMembers([...partition1, nMember, ...partition2]);
   };
 
@@ -263,7 +259,6 @@ const HouseholdSalaryCalculator = () => {
             activeMember.csaladiKedvezmeny,
             activeMember.eltartottak
           );
-          console.log(activeMember.szja + "taxok utan");
         } else {
           changeActiveTaxes(
             0,
@@ -325,7 +320,7 @@ const HouseholdSalaryCalculator = () => {
             activeMember.frissHazasok,
             activeMember.szemelyiKedvezmeny,
             1,
-            activeMember.eltartottak
+            1,
           );
         } else {
           setNumberPopUp(false);

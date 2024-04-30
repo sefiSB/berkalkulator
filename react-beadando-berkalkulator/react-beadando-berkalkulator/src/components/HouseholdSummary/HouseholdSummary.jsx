@@ -45,7 +45,12 @@ const HouseholdSummary = ({members}) => {
       }
     }
     osszeg += member.brber - tax;
-    return member.brber - tax;
+    if(member.brber-tax>member.brber){
+      return member.brber;
+    }
+    else{
+      return member.brber - tax;
+    }
   };
 
 

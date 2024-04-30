@@ -18,7 +18,7 @@ const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick,emptyMember
           <Nav.Item key={item.id} className="tabs">
             <Nav.Link
               active={item.id === active.id}
-              onClick={() => handleClick(item)}
+              onClick={() => {handleClick(item);console.log(item)}}
             >
               
               {item.name}
