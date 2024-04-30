@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Stack } from "@mui/material";
+import LabeledInput from "../LabeledInput/LabeledInput";
 
 
 const SalaryCalculator = ({ active, members, onSubmit, deleteMember }) => {
-  const handleSubmit = () => {
-    let name = document.querySelector("#nev").value;
-    let brber = document.querySelector("#brber").value;
-    onSubmit(name, +brber);
+  const handleSubmit = (name,brber) => {
+    /* let name = document.querySelector("#nev").value;
+    let brber = document.querySelector("#brber").value; */
+    onSubmit(name, brber);
   };
 
   const handleSliderChange = () => {
@@ -40,7 +41,7 @@ const SalaryCalculator = ({ active, members, onSubmit, deleteMember }) => {
         <h1 style={{textTransform:"uppercase"}}>{active.name} bérének kiszámítása</h1>
         <span onClick={delMem}>X</span>
       </div>
-      <strong>
+      {/* <strong>
         <label htmlFor="nev">Családtag neve</label>
       </strong>{" "}
       <br />
@@ -63,7 +64,26 @@ const SalaryCalculator = ({ active, members, onSubmit, deleteMember }) => {
         value={active.brber}
         onChange={handleSubmit}
       />
-      <p>Add meg a bruttó béredet!</p>
+      <p>Add meg a bruttó béredet!</p> */}
+
+      <LabeledInput
+      active={active}
+      label="Családtag neve"
+      msg="Add meg a családtagod nevét!"
+      onChange={handleSubmit}
+      type={"text"}
+      name={"nev"}
+      />
+
+      <LabeledInput
+      active={active}
+      label="Bruttó bér"
+      msg="Add meg a bruttó béredet!"
+      onChange={handleSubmit}
+      type={"number"}
+      name={"brber"}
+      />
+
       <input
         id="slider"
         type="range"
