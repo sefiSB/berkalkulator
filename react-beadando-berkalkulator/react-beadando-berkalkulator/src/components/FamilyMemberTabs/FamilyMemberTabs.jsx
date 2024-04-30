@@ -10,7 +10,7 @@ const FamilyMemberTabs = ({ members, active, onTabClick, onPlusClick,emptyMember
   
 
   return (
-    <div>
+    <div className="marginleft">
       <Nav variant="pills">
         
         {

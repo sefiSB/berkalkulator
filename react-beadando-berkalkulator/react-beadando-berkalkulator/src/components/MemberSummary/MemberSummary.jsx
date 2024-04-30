@@ -52,8 +52,10 @@ const MemberSummary = ({ activeMember }) => {
 
   return (
     <>
+      <div className="membersummary">
         <h2>Számított nettó bér:</h2>
         <div>{Math.floor(countTax())}</div>
+      </div>
     </>
   );
 };

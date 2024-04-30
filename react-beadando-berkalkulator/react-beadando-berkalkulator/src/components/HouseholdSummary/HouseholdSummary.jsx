@@ -2,6 +2,7 @@ import Table from 'react-bootstrap/Table';
 
 const HouseholdSummary = ({members}) => {
 
+  let osszeg = 0;
 
   const countTax = (member) => {
     const msDay = 1000 * 60 * 60 * 24;
@@ -43,7 +44,7 @@ const HouseholdSummary = ({members}) => {
         tax -= 33000 * member.eltartottak;
       }
     }
-
+    osszeg += member.brber - tax;
     return member.brber - tax;
   };
 
@@ -66,6 +67,10 @@ const HouseholdSummary = ({members}) => {
         <td>{Math.floor(countTax(member))}</td>
       </tr>
     ))}
+    <tr>
+      <td>Összesen</td>
+      <td> {Math.floor(osszeg)} </td>
+    </tr>
     </tbody>
     </Table>
   </div>;
