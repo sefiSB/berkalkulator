@@ -4,10 +4,9 @@ import { Button, Stack } from "@mui/material";
 import LabeledInput from "../LabeledInput/LabeledInput";
 
 
-const SalaryCalculator = ({ active, members, onSubmit, deleteMember }) => {
+const SalaryCalculator = ({ active, onSubmit, deleteMember }) => {
   const handleSubmit = (name,brber) => {
-    /* let name = document.querySelector("#nev").value;
-    let brber = document.querySelector("#brber").value; */
+    
     onSubmit(name, brber);
   };
 
@@ -36,9 +35,9 @@ const SalaryCalculator = ({ active, members, onSubmit, deleteMember }) => {
   return (
     <> 
     <div>
-      <div style={{display:"flex"}}>
+      <div style={{display:"flex", justifyContent:"space-between"}}>
         <h1 style={{textTransform:"uppercase"}}>{active.name} bérének kiszámítása</h1>
-        <span onClick={delMem}>X</span>
+        <div onClick={delMem} style={{marginRight:"5%",fontSize:"20px"}}>🗑️</div>
       </div>
       {/* <strong>
         <label htmlFor="nev">Családtag neve</label>

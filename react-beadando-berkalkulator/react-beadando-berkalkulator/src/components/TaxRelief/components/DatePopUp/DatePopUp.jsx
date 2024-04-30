@@ -47,7 +47,7 @@ const DatePopUp = ({ active, dateChange, show, validate }) => {
           close={closePopUp}
           />
           
-        <div>{active.frissHazasok==1 && validate ? <p style={{color:green[500]}}>A dátum megfelelő</p> : <p style={{color:red[500]}}>Nem megfelelő dátum</p>}</div>
+        <div>{active.frissHazasok==1 && validate ? <p style={{color:green[500]}}>Jogosult</p> : <p style={{color:red[500]}}>Nem jogosult</p>}</div>
       </div>
     );
   } else {
